@@ -19,6 +19,8 @@ public class CamberBot extends TelegramLongPollingBot {
         List<BotCommand> commands = new ArrayList();
         commands.add(new BotCommand("/start","start learn"));
         commands.add(new BotCommand("/info","information"));
+        commands.add(new BotCommand("/contact","contact with developers"));
+        commands.add(new BotCommand("/site","our website"));
         try{
             execute(new SetMyCommands(commands,new BotCommandScopeDefault(), null));
         }catch (TelegramApiException e){
@@ -46,22 +48,21 @@ public class CamberBot extends TelegramLongPollingBot {
             switch (textFromuser){
                 case"/start":
                     sendAnswer(chatId,"Hello "+userName+", I'm Camber-bot " +
-                            "\ncreated to help you learn programming. Choose programing language");
+                            "\ncreated to help you learn programming. Choose programing language" +
+                            "\nwrite /info if you want to know more bot commands" +
+                            "\n(The buttons contain only the most popular programming languages)");
                     break;
                 case "/info":
-                    sendAnswer(chatId,"We invite you to our unique telegram bot \"Camber\" - your reliable assistant in learning programming languages!\n" +
-                            "\n" +
-                            "\"Camber\" is a specially designed Telegram bot that helps you learn programming languages effectively. Regardless of your experience - whether you are new to programming or an experienced developer, CodeWizard always has something interesting for you.\n" +
-                            "\n" +
-                            "The main advantage of \"Camber\" is that the bot sends you useful links to materials and practical exercises. This allows you to actively work on developing your programming skills.\n" +
-                            "\n" +
-                            "Materials: Camber sends you links to the best online courses, video tutorials, blogs and articles related to your programming language. You can study at your own pace, focusing on the topics that interest you the most. The bot always supports you with fresh and relevant information.\n" +
-                            "\n" +
-                            "Practice Tasks: Camber sends you regular practice tasks. These can be real-life problems or exercises aimed at consolidating programming concepts. You get the opportunity to put your knowledge into practice and improve your skills.\n" +
-                            "\n" +
-                            "Helpful Resources: Camber also sends you helpful resources, such as online programming environments, syntax references, forums, and programming communities. You'll always have the tools you need to learn and develop your skills.\n" +
-                            "\n" +
-                            "Do not spend a lot of time looking for the necessary materials and practical tasks. Join \"Саmber\" in Telegram today and start an exciting journey into the world of programming!");
+                    sendAnswer(chatId,"Bot commands :" +
+                            "\n /contact -> contact with developers" +
+                            "\n /site -> website of course");
+                    break;
+                case"/contact":
+                    sendAnswer(chatId,"Bot developer (Roma) : https://t.me/RomaEthereal");
+                    sendAnswer(chatId,"Website developer (Denys) : https://t.me/o_o1o_o");
+                    break;
+                case"/site":
+                    sendAnswer(chatId,"in development");
                     break;
                 case "Java":
                     sendAnswer(chatId,"First, you need to know the basics about the programing language" +
@@ -127,8 +128,24 @@ public class CamberBot extends TelegramLongPollingBot {
                 case "Golang":
                     sendAnswer(chatId,"in development");
                     break;
-                case "dev":
-                    sendAnswer(chatId,"Hi, i`m Roma ");
+                case "about dev":
+                    sendAnswer(chatId,"Hi, if you've clicked this button, you're probably wondering who I am. " +
+                            "\nWell, I'm just a simple person who wants to make this life a little better. " +
+                            "\nCamber is my first bot, the idea behind writing this bot" +
+                            "\n is to help other people learn one of the given programming languages and its frameworks." +
+                            "\n Why? Because now there are so many different courses where beginners get lost, " +
+                            "\nand this bot was written by me, and I was a beginner who got lost in the flow of information. " +
+                            "\nIn this bot, all links and videos are checked by me (the developer). " +
+                            "\nThank you for using this bot, I will continue to develop and improve it, " +
+                            "\nand in the future we will have a website with all the information about the bot. " +
+                            "\nHappy learning and remember never to rush, never! Give yourself a year or maybe more to study." +
+                            "\n (A little motivation for you and a story from my life: " +
+                            "\nI started learning programming 4 years ago (I'm 19 now) " +
+                            "\nand this is my only project so far and the only programming language I really like is Java. " +
+                            "\nI went through a lot of things, I quit studying and continued and tried other things, " +
+                            "\nbut until I started writing in Java, I thank my friend who told me about Java, " +
+                            "\nso never think that you are doing something wrong or you are failing, believe me, " +
+                            "\nI also have a lot of things that do not work out, but the main thing is just to go to your goal)");
                     break;
                 default:
                     sendAnswer(chatId,"I don`t  understand your request. Try again");
@@ -159,7 +176,7 @@ public class CamberBot extends TelegramLongPollingBot {
 
         row.add("Python");
         row.add("Golang");
-        row.add("dev");
+        row.add("about dev");
 
         keyboardRows.add(row);
 
