@@ -3,6 +3,8 @@ package com.roma.Camber;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.send.SendVideo;
+import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.objects.commands.scope.BotCommandScopeDefault;
@@ -21,6 +23,7 @@ public class CamberBot extends TelegramLongPollingBot {
         commands.add(new BotCommand("/info","information"));
         commands.add(new BotCommand("/contact","contact with developers"));
         commands.add(new BotCommand("/site","our website"));
+        commands.add(new BotCommand("/howlearn","guide how learn any programing language"));
         try{
             execute(new SetMyCommands(commands,new BotCommandScopeDefault(), null));
         }catch (TelegramApiException e){
@@ -50,7 +53,9 @@ public class CamberBot extends TelegramLongPollingBot {
                     sendAnswer(chatId,"Hello "+userName+", I'm Camber-bot " +
                             "\ncreated to help you learn programming. Choose programing language" +
                             "\nwrite /info if you want to know more bot commands" +
-                            "\n(The buttons contain only the most popular programming languages)");
+                            "\n(The buttons contain only the most popular programming languages)" +
+                            "\nif you want to learn the language well, then just learn " +
+                            "\nby how the bot sends you a link (and the link is not to 1 article but to the entire course, click /howlearn)");
                     break;
                 case "/info":
                     sendAnswer(chatId,"Bot commands :" +
@@ -64,6 +69,12 @@ public class CamberBot extends TelegramLongPollingBot {
                 case"/site":
                     sendAnswer(chatId,"in development");
                     break;
+                case"/howlearn":
+                    sendAnswer(chatId,"set aside 2-4 hours every day \n" +
+                            "write the code that is displayed in the orders (why is this necessary even if you understand what it says there - so that you can see what code you need to write because at the beginning your code will be very bad and you need to develop writing clean code right away)\n" +
+                            "practice for 2-4 hours but every day \n" +
+                            "20% theory 80% practice");
+                    break;
                 case "Java":
                     sendAnswer(chatId,"First, you need to know the basics about the programing language" +
                             "\n\nBut befor you must dowload JDK" +
@@ -74,29 +85,28 @@ public class CamberBot extends TelegramLongPollingBot {
                             "\n Inteliji ide Ultimate (paid)/ Inteliji ide Community, vsCode(free), netbeans(free), eclipse(free)" +
                             "\n\n\n ------------------------------------------" +
                             "\nBasics : " +
-                            "\nStudyToNight(I used this site for learn java) -> https://www.studytonight.com/java/overview-of-java.php" +
-                            "\nGeeksforGeeks -> https://www.geeksforgeeks.org/java/?ref=shm" +
+                            "\n\nStudyToNight(I used this site for learn java) -> https://www.studytonight.com/java/overview-of-java.php" +
+                            "\n\nGeeksforGeeks -> https://www.geeksforgeeks.org/java/?ref=shm" +
                             "\n\n\nif you want to watch videos -> https://www.youtube.com/watch?v=GoXwIVyNvX0&list=PLWKjhJtqVAbnRT_hue-3zyiuIYj0OlpyG&ab_channel=freeCodeCamp.org  " +
-                            "\nYes, the videos are very long, but it`s java, it`s alredy in demand, so you have to work hard" +
+                            "\n\nYes, the videos are very long, but it`s java, it`s alredy in demand, so you have to work hard" +
                             "\n\n\nBut if you don`t want watch this course folow this -> https://www.youtube.com/watch?v=VHbSopMyc4M&list=PLBlnK6fEyqRjKA_NuK9mHmlk0dZzuP1P5" +
-                            "\nPractice CodingBat (only!) -> https://codingbat.com/java" +
-                            "\n when you complate codingbat go learn OOP, Data Structures and Algorithms"+
+                            "\n\nPractice CodingBat (only!) -> https://codingbat.com/java" +
+                            "\n\nwhen you complate codingbat go learn OOP, Data Structures and Algorithms"+
                             "\n\n\n ------------------------------------------" +
-                            "\nOkay next step is OOP" +
-                            "\nRead this -> https://www.studytonight.com/java/object-and-classes.php"+
+                            "\n\nOkay next step is OOP" +
+                            "\n\nRead this -> https://www.studytonight.com/java/object-and-classes.php"+
                             "\n\n\n ------------------------------------------" +
-                            "\nData Structures -> mygreatlearning.com/blog/data-structures-using-java/" +
+                            "\n\nData Structures -> mygreatlearning.com/blog/data-structures-using-java/" +
                             "\n\nAlgorithms -> https://howtodoinjava.com/java-algorithms-implementations/" +
-                            "\nPractice CodeWars -> https://www.codewars.com/ " +
-                            "\nor" +
-                            "\nHackerRank https://www.hackerrank.com/"+
+                            "\n\nPractice CodeWars -> https://www.codewars.com/ " +
+                            "\n\nor HackerRank https://www.hackerrank.com/"+
                             "\n\n\n ------------------------------------------" +
                             "\nData Base -> https://www.tutorialspoint.com/postgresql/index.htm " +
-                            "\n\n how connect db to your IDE (vscode, netbeans, eclips, ineliji idea Ultimate) ->" +
-                            "\n vsCode -> https://ryanhutzley.medium.com/getting-started-with-the-postgresql-extension-for-vscode-d666c281ec72" +
-                            "\nnetbeans -> https://www.youtube.com/watch?v=Nzxqg8I0tcQ" +
-                            "\neclipse -> https://www.enterprisedb.com/postgres-tutorials/how-connect-postgres-database-using-eclipse-and-netbeans" +
-                            "\ninteliji ide Ultimate -> https://www.youtube.com/watch?v=D-WoteCPi14"+
+                            "\n\n how connect db to your IDE (vscode, netbeans, eclips, ineliji idea Ultimate):" +
+                            "\n\n vsCode -> https://ryanhutzley.medium.com/getting-started-with-the-postgresql-extension-for-vscode-d666c281ec72" +
+                            "\n\nnetbeans -> https://www.youtube.com/watch?v=Nzxqg8I0tcQ" +
+                            "\n\neclipse -> https://www.enterprisedb.com/postgres-tutorials/how-connect-postgres-database-using-eclipse-and-netbeans" +
+                            "\n\ninteliji ide Ultimate -> https://www.youtube.com/watch?v=D-WoteCPi14"+
                             "\n\n\n ------------------------------------------" +
                             "\nMaven and Gradle" +
                             "\n\n Maven -> https://www.tutorialspoint.com/maven/index.htm" +
@@ -120,7 +130,39 @@ public class CamberBot extends TelegramLongPollingBot {
                             "Telegram bot (or add to mine))");
                     break;
                 case "JavaScript":
-                    sendAnswer(chatId,"in development");
+                    sendAnswer(chatId,"First, you need to know the basics about the programing language" +
+                            "\nDowload vsCode for JavaScript -> https://code.visualstudio.com/download" +
+                            "\n\n\n ------------------------------------------" +
+                            "\nBasics & OOP -> https://www.javascripttutorial.net/" +
+                            "\n\nDOM -> https://www.javascripttutorial.net/javascript-dom/" +
+                            "\n\nFetch API -> https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch" +
+                            "\n\nES6 -> https://www.javascripttutorial.net/es6/" +
+                            "\n\nAdvanced (array) -> https://www.javascripttutorial.net/javascript-array-methods/#" +
+                            "\n\nAdvanced (string) -> https://www.javascripttutorial.net/javascript-string-methods/" +
+                            "\n\nAdvanced (regex) -> https://www.javascripttutorial.net/javascript-regex/" +
+                            "\n\nHosting -> https://developer.mozilla.org/en-US/docs/Glossary/Hoisting" +
+                            "\n\nHosting -> https://www.geeksforgeeks.org/javascript-hoisting/" +
+                            "\n\nEvent Bubling -> https://www.freecodecamp.org/news/event-bubbling-in-javascript/#:~:text=What%20is%20Event%20Bubbling%3F,gets%20to%20the%20root%20element." +
+                            "\n\nShadow DOM -> https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM" +
+                            "\n\nPractice -> https://www.w3resource.com/javascript-exercises/" +
+                            "\n\n\n ------------------------------------------" +
+                            "\n\nAlgorithm -> https://www.geeksforgeeks.org/fundamentals-of-algorithms/" +
+                            "\n\nDATA STRUCTURES -> https://www.geeksforgeeks.org/learn-data-structures-with-javascript-dsa-tutorial/" +
+                            "\n\nPRACTICE -> https://www.codewars.com/" +
+                            "\n\n\n ------------------------------------------" +
+                            "\nFRAMEWORKS:" +
+                            "\n\nREACT -> https://www.tutorialspoint.com/reactjs/index.htm" +
+                            "\n\nREACT NATIVE -> https://www.tutorialspoint.com/react_native/index.htm" +
+                            "\n\n\n ------------------------------------------" +
+                            "\n\nANGULAR -> (video) -> https://www.youtube.com/watch?v=3qBXWUpoPHo&ab_channel=freeCodeCamp.org" +
+                            "\n\nor ANGULAR -> (read) -> https://www.javatpoint.com/angular-7-tutorial" +
+                            "\n\n\n ------------------------------------------" +
+                            "\n\nVUE -> (read) -> https://vuejs.org/tutorial/#step-1" +
+                            "\n\nor VUE -> (video course) -> https://www.youtube.com/watch?v=YrxBCBibVo0&list=PL4cUxeGkcC9hYYGbV60Vq3IXYNfDk8At1&ab_channel=TheNetNinja" +
+                            "\n\n\n ------------------------------------------" +
+                            "\n\nIF you start learn JavaScript but you don`t know HTML+CSS watch this -> https://www.youtube.com/watch?v=G3e-cpL7ofc&ab_channel=SuperSimpleDev" +
+                            "\n\n\n ------------------------------------------" +
+                            "\n\nPet-project -> https://medium.com/@oleksii.vasylenko/top-10-pet-projects-for-junior-javascript-developers-da45f72c446a");
                     break;
                 case "Python":
                     sendAnswer(chatId,"in development");
@@ -153,6 +195,7 @@ public class CamberBot extends TelegramLongPollingBot {
 
         }
     }
+
     private void sendAnswer(Long chatId, String textToSend) {
         SendMessage message = new SendMessage();
         message.setChatId(String.valueOf(chatId));
