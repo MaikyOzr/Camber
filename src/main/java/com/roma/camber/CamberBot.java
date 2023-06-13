@@ -14,8 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CamberBot extends TelegramLongPollingBot {
-    String botVersion = "0.1.0";
-
     public CamberBot(){
         List<BotCommand> commands = new ArrayList();
         commands.add(new BotCommand("/start","start learn"));
@@ -23,6 +21,7 @@ public class CamberBot extends TelegramLongPollingBot {
         commands.add(new BotCommand("/contact","contact with developers"));
         commands.add(new BotCommand("/site","our website"));
         commands.add(new BotCommand("/howlearn","guide how learn any programing language"));
+        commands.add(new BotCommand("/qa","quest & answer"));
         try{
             execute(new SetMyCommands(commands,new BotCommandScopeDefault(), null));
         }catch (TelegramApiException e){
@@ -54,14 +53,38 @@ public class CamberBot extends TelegramLongPollingBot {
                             "\nwrite /info if you want to know more bot commands" +
                             "\n(The buttons contain only the most popular programming languages)" +
                             "\nif you want to learn the language well, then just learn " +
-                            "\nby how the bot sends you a link (and the link is not to 1 article but to the entire course, click /howlearn)");
-                    isApdate(chatId);
+                            "\nby how the bot sends you a link (and the link is not to 1 article but to the entire course, click /howlearn)" +
+                            "\n!!!here are courses only on web development!!!");
+
+                    break;
+                case"/qa":
+                    sendAnswer(chatId,"\nQA:" +
+                            "\n\n1)Will this bot be fully paid? - Yes, it will be." +
+                            "\n\n2)How high will the price of the bot be? - The price of the bot will be $3 for basic materials." +
+                            "\n There will be additional materials that no one will tell you about during the courses except" +
+                            "\n the developers themselves. The total price of the bot will be $5" +
+                            "\n (of course, you will not have to pay for additional materials)." +
+                            "\n\n3)What will be the payment style: - Monthly and 6-month subscription " +
+                            "\n(you can achieve everything in 6 months of full focus on yourself and your goal)" +
+                            "\n\n4)What happens when the subscription expires? - Nothing, you just won't have access to the bot's commands, that's all. \n" +
+                            "\nEverything else materials, practical resources, etc. will remain." +
+                            "\n\n5)If I have any problems with the code, can I contact you? - If you have problems with the Java code, you can contact the bot developer, " +
+                            "\nand if you have problems with JavaScript, you can contact the website developer. " +
+                            "\nIf there are other questions, we will not be able to help, " +
+                            "\nbut if you do not understand the practical task, one of us will be able to explain it to you," +
+                            "\nbut in Java and JavaScript + HTML + CSS + React code" +
+                            "\n\n6)I studied your bot, what to do next? - Again, if you chose a Java course," +
+                            "\n you can write projects that are written at the very bottom of the Java course," +
+                            "\n the same applies to JS (JavaScript)" +
+                            "\n\n7)Why is this bot free? - There are a lot of courses on the Internet that will only distract you," +
+                            "\n so we decided to organize the learning process to make you a better programmer.");
                     break;
                 case "/info":
                     sendAnswer(chatId,"Bot commands :" +
                             "\n /contact -> contact with developers" +
                             "\n /site -> website of course" +
-                            "\nadd JavaScript course and add new theme for Java");
+                            "\n /howlearn -> guide how learn programing language" +
+                            "\n /qa -> quest and answer");
                     break;
                 case"/contact":
                     sendAnswer(chatId,"Bot developer (Roma) : https://t.me/RomaEthereal");
@@ -78,15 +101,20 @@ public class CamberBot extends TelegramLongPollingBot {
                     break;
                 case "Java":
                     sendAnswer(chatId,"First, you need to know the basics about the programing language" +
-                            "\n\nBut befor you must dowload JDK" +
+                            "\n\n Instal: " +
+                            "\nInteliji Idea Community -> https://www.jetbrains.com/idea/ " +
+                            "\n/In the beginning, it will be enough for you" +
+                            "\nbut then you will have to choose:" +
+                            "\nNetBeans -> https://netbeans.apache.org/download/index.html" +
+                            "\nvsCode -> https://code.visualstudio.com/download" +
+                            "\nEclipse-> https://www.eclipse.org/downloads/" +
+                            "\n\nYou must dowload JDK" +
                             "folow link (Windows 10) -> https://www.youtube.com/watch?v=IJ-PJbvJBGs" +
                             "\n\n Windows 11 -> https://www.youtube.com/watch?v=VTzzmqNwGzM" +
                             "\n\n MacOS -> https://www.youtube.com/watch?v=pxi3iIy4F5A&ab_channel=ProgrammingKnowledge" +
-                            "\n\n and chose your ide for work" +
-                            "\n Inteliji ide Ultimate (paid)/ Inteliji ide Community, vsCode(free), netbeans(free), eclipse(free)" +
                             "\n\n\n ------------------------------------------" +
                             "\nBasics : " +
-                            "\n\nStudyToNight(I used this site for learn java) -> https://www.studytonight.com/java/overview-of-java.php" +
+                            "\n\nProgramiz -> https://www.programiz.com/java-programming" +
                             "\n\nGeeksforGeeks -> https://www.geeksforgeeks.org/java/?ref=shm" +
                             "\n\n\nif you want to watch videos -> https://www.youtube.com/watch?v=GoXwIVyNvX0&list=PLWKjhJtqVAbnRT_hue-3zyiuIYj0OlpyG&ab_channel=freeCodeCamp.org  " +
                             "\n\nYes, the videos are very long, but it`s java, it`s alredy in demand, so you have to work hard" +
@@ -94,6 +122,7 @@ public class CamberBot extends TelegramLongPollingBot {
                             "\n\nPractice CodingBat (only!) -> https://codingbat.com/java" +
                             "\n\nStreams-> https://www.geeksforgeeks.org/java-8-stream-tutorial/" +
                             "\n\nLambdas -> https://www.baeldung.com/java-8-lambda-expressions-tips" +
+                            "\n\nGenerics -> https://www.geeksforgeeks.org/generics-in-java/" +
                             "\n\nTDD (Test-Driven Development) -> https://medium.com/javarevisited/test-driven-development-tdd-for-java-programmers-cb73878afdde" +
                             "\n\nwhen you complate codingbat go learn OOP, Data Structures and Algorithms"+
                             "\n\n\n ------------------------------------------" +
@@ -117,13 +146,15 @@ public class CamberBot extends TelegramLongPollingBot {
                             "\n\n Gradle -> https://www.tutorialspoint.com/gradle/index.htm"+
                             "\n\n\n ------------------------------------------" +
                             "\nSo it`s you last step " +
-                            "\n\n Frameworks " +
-                            "\n\n Spring Core -> (read) https://www.studytonight.com/spring-framework/spring-introduction" +
-                            "\n\n Spring MVC -> (read) https://www.studytonight.com/spring-framework/spring-mvc-introduction " +
-                            "\n\n Spring Rest -> (read) https://spring.io/guides/tutorials/rest/" +
-                            "\n\n Spring boot -> (read) https://www.studytonight.com/spring-boot/introduction-to-spring-boot" +
-                            "\n\n Spring security -> (watch) https://www.youtube.com/watch?v=b9O9NI-RJ3o&ab_channel=Amigoscode" +
-                            "\n\n Hibernate -> https://www.tutorialspoint.com/hibernate/index.htm"+
+                            "\n\nFrameworks " +
+                            "\n\nSpring Core -> (read) https://www.tutorialspoint.com/spring/index.htm" +
+                            "\n\nSpring MVC -> (read) https://www.tutorialspoint.com/spring/spring_web_mvc_framework.htm " +
+                            "\n\nSpring Rest -> (read) https://spring.io/guides/tutorials/rest/" +
+                            "\n\nSpring boot -> (read) https://www.geeksforgeeks.org/spring-boot-starters/" +
+                            "\n\nSpring security -> (watch) https://www.youtube.com/watch?v=b9O9NI-RJ3o&ab_channel=Amigoscode" +
+                            "\n\n   or read -> https://www.javadevjournal.com/spring/what-is-spring-security/" +
+                            "\n\nHibernate -> https://www.tutorialspoint.com/hibernate/index.htm" +
+                            "\n\nJUnit -> https://www.tutorialspoint.com/junit/index.htm"+
                             "\n\n\n ------------------------------------------" +
                             "\nCongratulations, you have completed your java training \n" +
                             "Now for the hard part. \n" +
@@ -169,7 +200,33 @@ public class CamberBot extends TelegramLongPollingBot {
                             "\n\nPet-project -> https://medium.com/@oleksii.vasylenko/top-10-pet-projects-for-junior-javascript-developers-da45f72c446a");
                     break;
                 case "Python":
-                    sendAnswer(chatId,"in development");
+                    sendAnswer(chatId,"First, you need to know the basics about the programing language" +
+                            "\n\nDowload IDE for work with python: PyCharm Community or vsCode" +
+                            "\nPyCharm -> https://www.jetbrains.com/pycharm/download/#section=windows" +
+                            "\n or vsCode -> https://code.visualstudio.com/download" +
+                            "\n\nMust read before work -> https://www.pythontutorial.net/getting-started/" +
+                            "\n\n\n ------------------------------------------" +
+                            "\n\nSTART:" +
+                            "\n\n Basics -> https://www.pythontutorial.net/python-basics/" +
+                            "\n\n OOP -> https://www.pythontutorial.net/python-oop/" +
+                            "\n\nMore Python -> https://www.pythontutorial.net/python-concurrency/" +
+                            "\n\n Algorithm & Data Structures -> https://www.geeksforgeeks.org/python-data-structures-and-algorithms/" +
+                            "\n\n\n ------------------------------------------" +
+                            "\n\nFRAMEWORK:" +
+                            "\n\nDJango -> https://www.geeksforgeeks.org/django-tutorial/" +
+                            "\n\n\n ------------------------------------------" +
+                            "\n\nAnd now I will explain why there are few useful links to Python and JavaScript. \n" +
+                            "\nI'm a Java developer, this bot is written in Java, " +
+                            "\nPython is a very easy to understand language (Golang is the same Python only from Google) " +
+                            "\nI want you to understand that the bot you are using is free. " +
+                            "\nThere will not be all the knowledge of programming is that you google and look for answers, " +
+                            "\nthe bot itself gives you information that you can then use for your own purposes." +
+                            "\n\n\n ------------------------------------------" +
+                            "\n\nPRACTICE :" +
+                            "\nCodeWars -> https://www.codewars.com/" +
+                            "\n\nCodingBat -> https://codingbat.com/python" +
+                            "\n\nPet-project ideas:" +
+                            "\n folow -> https://www.dataquest.io/blog/python-projects-for-beginners/");
                     break;
                 case "Golang":
                     sendAnswer(chatId,"in development");
@@ -196,18 +253,7 @@ public class CamberBot extends TelegramLongPollingBot {
                 default:
                     sendAnswer(chatId,"I don`t  understand your request. Try again");
             }
-
         }
-    }
-
-    private boolean isApdate (Long chatId){
-        if(isApdate(chatId)==true){
-            sendAnswer(chatId,"click /info");
-        }
-        else{
-            sendAnswer(chatId,"No updates");
-        }
-        return false;
     }
 
     private void sendAnswer(Long chatId, String textToSend) {
