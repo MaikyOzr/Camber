@@ -1,4 +1,4 @@
-package com.roma.Camber;
+package com.roma.camber;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,7 +15,7 @@ public class CamberApplication {
 			TelegramBotsApi api = new TelegramBotsApi(DefaultBotSession.class);
 			api.registerBot(new CamberBot());
 		} catch (TelegramApiException e) {
-			throw new RuntimeException(e);
+			throw new RuntimeException("Error");
 		}
 	}
 

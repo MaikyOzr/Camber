@@ -1,4 +1,4 @@
-package com.roma.Camber;
+package com.roma.camber;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

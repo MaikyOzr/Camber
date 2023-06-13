@@ -1,10 +1,8 @@
-package com.roma.Camber;
+package com.roma.camber;
 
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.methods.send.SendVideo;
-import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.objects.commands.scope.BotCommandScopeDefault;
@@ -16,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CamberBot extends TelegramLongPollingBot {
+    String botVersion = "0.1.0";
 
     public CamberBot(){
         List<BotCommand> commands = new ArrayList();
@@ -56,11 +55,13 @@ public class CamberBot extends TelegramLongPollingBot {
                             "\n(The buttons contain only the most popular programming languages)" +
                             "\nif you want to learn the language well, then just learn " +
                             "\nby how the bot sends you a link (and the link is not to 1 article but to the entire course, click /howlearn)");
+                    isApdate(chatId);
                     break;
                 case "/info":
                     sendAnswer(chatId,"Bot commands :" +
                             "\n /contact -> contact with developers" +
-                            "\n /site -> website of course");
+                            "\n /site -> website of course" +
+                            "\nadd JavaScript course and add new theme for Java");
                     break;
                 case"/contact":
                     sendAnswer(chatId,"Bot developer (Roma) : https://t.me/RomaEthereal");
@@ -91,6 +92,9 @@ public class CamberBot extends TelegramLongPollingBot {
                             "\n\nYes, the videos are very long, but it`s java, it`s alredy in demand, so you have to work hard" +
                             "\n\n\nBut if you don`t want watch this course folow this -> https://www.youtube.com/watch?v=VHbSopMyc4M&list=PLBlnK6fEyqRjKA_NuK9mHmlk0dZzuP1P5" +
                             "\n\nPractice CodingBat (only!) -> https://codingbat.com/java" +
+                            "\n\nStreams-> https://www.geeksforgeeks.org/java-8-stream-tutorial/" +
+                            "\n\nLambdas -> https://www.baeldung.com/java-8-lambda-expressions-tips" +
+                            "\n\nTDD (Test-Driven Development) -> https://medium.com/javarevisited/test-driven-development-tdd-for-java-programmers-cb73878afdde" +
                             "\n\nwhen you complate codingbat go learn OOP, Data Structures and Algorithms"+
                             "\n\n\n ------------------------------------------" +
                             "\n\nOkay next step is OOP" +
@@ -194,6 +198,16 @@ public class CamberBot extends TelegramLongPollingBot {
             }
 
         }
+    }
+
+    private boolean isApdate (Long chatId){
+        if(isApdate(chatId)==true){
+            sendAnswer(chatId,"click /info");
+        }
+        else{
+            sendAnswer(chatId,"No updates");
+        }
+        return false;
     }
 
     private void sendAnswer(Long chatId, String textToSend) {
