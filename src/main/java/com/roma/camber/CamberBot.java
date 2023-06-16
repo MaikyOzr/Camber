@@ -2,6 +2,7 @@ package com.roma.camber;
 
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands;
+import org.telegram.telegrambots.meta.api.methods.groupadministration.GetChatMemberCount;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
@@ -9,25 +10,28 @@ import org.telegram.telegrambots.meta.api.objects.commands.scope.BotCommandScope
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class CamberBot extends TelegramLongPollingBot {
-    public CamberBot(){
+    public CamberBot() {
         List<BotCommand> commands = new ArrayList();
-        commands.add(new BotCommand("/start","start learn"));
-        commands.add(new BotCommand("/info","information"));
-        commands.add(new BotCommand("/contact","contact with developers"));
-        commands.add(new BotCommand("/site","our website"));
-        commands.add(new BotCommand("/howlearn","guide how learn any programing language"));
-        commands.add(new BotCommand("/qa","quest & answer"));
-        try{
-            execute(new SetMyCommands(commands,new BotCommandScopeDefault(), null));
-        }catch (TelegramApiException e){
+        commands.add(new BotCommand("/start", "start learn"));
+        commands.add(new BotCommand("/info", "information"));
+        commands.add(new BotCommand("/contact", "contact with developers"));
+        commands.add(new BotCommand("/site", "our website"));
+        commands.add(new BotCommand("/howlearn", "guide how learn any programing language"));
+        commands.add(new BotCommand("/qa", "quest & answer"));
+        commands.add(new BotCommand("/community","group where we talk"));
+        commands.add(new BotCommand("/channel","official channel"));
+        commands.add(new BotCommand("/people","Count of people who use Camber"));
+        try {
+            execute(new SetMyCommands(commands, new BotCommandScopeDefault(), null));
+        } catch (TelegramApiException e) {
             e.printStackTrace();
         }
     }
+
     @Override
     public String getBotUsername() {
         return "CamberLearnBot";
@@ -40,25 +44,33 @@ public class CamberBot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-        if(update.hasMessage() && update.getMessage().hasText()){
+        if (update.hasMessage() && update.getMessage().hasText()) {
 
             String textFromuser = update.getMessage().getText();
             Long chatId = update.getMessage().getChatId();
             String userName = update.getMessage().getFrom().getUserName();
 
-            switch (textFromuser){
-                case"/start":
-                    sendAnswer(chatId,"Hello "+userName+", I'm Camber-bot " +
+            switch (textFromuser) {
+                case"/people":
+                    getChatMember(chatId);
+                    break;
+                case"/community":
+                    sendAnswer(chatId,"Click -> https://t.me/+AgulXMwrgrg1ZDRi");
+                    break;
+                case "/start":
+                    sendAnswer(chatId, "Please note that I am still under development and may not always be available. Thank you for your understanding" +
+                            "\nHello " + userName + ", I'm Camber-bot " +
                             "\ncreated to help you learn programming. Choose programing language" +
-                            "\nwrite /info if you want to know more bot commands" +
+                            "\nclick /info if you want to know more bot commands" +
                             "\n(The buttons contain only the most popular programming languages)" +
                             "\nif you want to learn the language well, then just learn " +
                             "\nby how the bot sends you a link (and the link is not to 1 article but to the entire course, click /howlearn)" +
+                            "\n\nJoin our channel -> /channel & Join our chat -> /community" +
                             "\n!!!here are courses only on web development!!!");
 
                     break;
-                case"/qa":
-                    sendAnswer(chatId,"\nQA:" +
+                case "/qa":
+                    sendAnswer(chatId, "\nQA:" +
                             "\n\n1)Will this bot be fully paid? - Yes, it will be." +
                             "\n\n2)How high will the price of the bot be? - The price of the bot will be $3 for basic materials." +
                             "\n There will be additional materials that no one will tell you about during the courses except" +
@@ -80,27 +92,32 @@ public class CamberBot extends TelegramLongPollingBot {
                             "\n so we decided to organize the learning process to make you a better programmer.");
                     break;
                 case "/info":
-                    sendAnswer(chatId,"Bot commands :" +
+                    sendAnswer(chatId, "Bot commands :" +
                             "\n /contact -> contact with developers" +
                             "\n /site -> website of course" +
                             "\n /howlearn -> guide how learn programing language" +
-                            "\n /qa -> quest and answer");
+                            "\n /qa -> quest and answer" +
+                            "\n /community -> our group chat" +
+                            "\n /channel -> our channel");
                     break;
-                case"/contact":
-                    sendAnswer(chatId,"Bot developer (Roma) : https://t.me/RomaEthereal");
-                    sendAnswer(chatId,"Website developer (Denys) : https://t.me/o_o1o_o");
+                case "/contact":
+                    sendAnswer(chatId, "Bot developer (Roma) : https://t.me/RomaEthereal");
+                    sendAnswer(chatId, "Website developer (Denys) : https://t.me/o_o1o_o");
                     break;
-                case"/site":
-                    sendAnswer(chatId,"in development");
+                case "/site":
+                    sendAnswer(chatId, "in development");
                     break;
-                case"/howlearn":
-                    sendAnswer(chatId,"set aside 2-4 hours every day \n" +
+                case "/howlearn":
+                    sendAnswer(chatId, "set aside 2-4 hours every day \n" +
                             "write the code that is displayed in the orders (why is this necessary even if you understand what it says there - so that you can see what code you need to write because at the beginning your code will be very bad and you need to develop writing clean code right away)\n" +
                             "practice for 2-4 hours but every day \n" +
                             "20% theory 80% practice");
                     break;
+                case "/channel":
+                    sendAnswer(chatId,"https://t.me/+o3IK4B5Vw0kyY2My");
+                    break;
                 case "Java":
-                    sendAnswer(chatId,"First, you need to know the basics about the programing language" +
+                    sendAnswer(chatId, "First" +
                             "\n\n Instal: " +
                             "\nInteliji Idea Community -> https://www.jetbrains.com/idea/ " +
                             "\n/In the beginning, it will be enough for you" +
@@ -123,38 +140,41 @@ public class CamberBot extends TelegramLongPollingBot {
                             "\n\nStreams-> https://www.geeksforgeeks.org/java-8-stream-tutorial/" +
                             "\n\nLambdas -> https://www.baeldung.com/java-8-lambda-expressions-tips" +
                             "\n\nGenerics -> https://www.geeksforgeeks.org/generics-in-java/" +
-                            "\n\nTDD (Test-Driven Development) -> https://medium.com/javarevisited/test-driven-development-tdd-for-java-programmers-cb73878afdde" +
-                            "\n\nwhen you complate codingbat go learn OOP, Data Structures and Algorithms"+
+                            "\n\nwhen you complate codingbat go learn OOP, Data Structures and Algorithms" +
                             "\n\n\n ------------------------------------------" +
                             "\n\nOkay next step is OOP" +
-                            "\n\nRead this -> https://www.studytonight.com/java/object-and-classes.php"+
+                            "\n\nRead this -> https://www.studytonight.com/java/object-and-classes.php" +
                             "\n\n\n ------------------------------------------" +
                             "\n\nData Structures -> mygreatlearning.com/blog/data-structures-using-java/" +
                             "\n\nAlgorithms -> https://howtodoinjava.com/java-algorithms-implementations/" +
                             "\n\nPractice CodeWars -> https://www.codewars.com/ " +
-                            "\n\nor HackerRank https://www.hackerrank.com/"+
+                            "\n\nor HackerRank https://www.hackerrank.com/" +
                             "\n\n\n ------------------------------------------" +
                             "\nData Base -> https://www.tutorialspoint.com/postgresql/index.htm " +
                             "\n\n how connect db to your IDE (vscode, netbeans, eclips, ineliji idea Ultimate):" +
                             "\n\n vsCode -> https://ryanhutzley.medium.com/getting-started-with-the-postgresql-extension-for-vscode-d666c281ec72" +
                             "\n\nnetbeans -> https://www.youtube.com/watch?v=Nzxqg8I0tcQ" +
                             "\n\neclipse -> https://www.enterprisedb.com/postgres-tutorials/how-connect-postgres-database-using-eclipse-and-netbeans" +
-                            "\n\ninteliji ide Ultimate -> https://www.youtube.com/watch?v=D-WoteCPi14"+
+                            "\n\nInteliji IDE Ultimate(paid) -> https://www.youtube.com/watch?v=D-WoteCPi14" +
                             "\n\n\n ------------------------------------------" +
                             "\nMaven and Gradle" +
                             "\n\n Maven -> https://www.tutorialspoint.com/maven/index.htm" +
-                            "\n\n Gradle -> https://www.tutorialspoint.com/gradle/index.htm"+
-                            "\n\n\n ------------------------------------------" +
-                            "\nSo it`s you last step " +
+                            "\n\n Gradle -> https://www.tutorialspoint.com/gradle/index.htm");
+                    sendAnswer(chatId,"\n\n\n ------------------------------------------" +
                             "\n\nFrameworks " +
-                            "\n\nSpring Core -> (read) https://www.tutorialspoint.com/spring/index.htm" +
-                            "\n\nSpring MVC -> (read) https://www.tutorialspoint.com/spring/spring_web_mvc_framework.htm " +
-                            "\n\nSpring Rest -> (read) https://spring.io/guides/tutorials/rest/" +
-                            "\n\nSpring boot -> (read) https://www.geeksforgeeks.org/spring-boot-starters/" +
-                            "\n\nSpring security -> (watch) https://www.youtube.com/watch?v=b9O9NI-RJ3o&ab_channel=Amigoscode" +
-                            "\n\n   or read -> https://www.javadevjournal.com/spring/what-is-spring-security/" +
-                            "\n\nHibernate -> https://www.tutorialspoint.com/hibernate/index.htm" +
-                            "\n\nJUnit -> https://www.tutorialspoint.com/junit/index.htm"+
+                            "\n\nMAIN PAGE -> https://www.geeksforgeeks.org/spring/" +
+                            "\n\nIntroduction to Spring -> (read) https://www.geeksforgeeks.org/introduction-to-spring-framework/" +
+                            "\n\nSpring Core -> (read) https://www.geeksforgeeks.org/spring/" +
+                            "\n\nSpring Boot -> (read) https://www.geeksforgeeks.org/introduction-to-spring-boot/"+
+                            "\n\nSpring MVC -> (read) https://www.geeksforgeeks.org/spring-mvc/ " +
+                            "\n\nSpring REST API -> (read) https://www.geeksforgeeks.org/spring-rest-json-response/" +
+                            "\n\nSpring DATA -> (read) https://www.geeksforgeeks.org/what-is-spring-data-jpa/" +
+                            "\n\nSpring JDBC -> (read) https://www.geeksforgeeks.org/spring-jdbc-template/" +
+                            "\n\nHibernate  -> (read) https://www.geeksforgeeks.org/spring-hibernate-configuration-and-create-a-table-in-database/" +
+                            "\n\nSpring AOP -> (read) https://www.geeksforgeeks.org/aspect-oriented-programming-and-aop-in-spring-framework/" +
+                            "\n\nSpring Security -> (read) https://www.geeksforgeeks.org/introduction-to-spring-security-and-its-features/ " +
+                            "\n\nJUnit -> https://www.tutorialspoint.com/junit/index.htm" +
+                            "\nTDD (Test-Driven Development) -> https://medium.com/javarevisited/test-driven-development-tdd-for-java-programmers-cb73878afdde\"" +
                             "\n\n\n ------------------------------------------" +
                             "\nCongratulations, you have completed your java training \n" +
                             "Now for the hard part. \n" +
@@ -162,10 +182,11 @@ public class CamberBot extends TelegramLongPollingBot {
                             "write one of the following projects \n" +
                             "Booking of airplane tickets (or other transport: bus, train, subway)\n" +
                             "Mini bank \n" +
-                            "Telegram bot (or add to mine))");
+                            "Telegram bot (or add to mine))" +
+                            "\n\nProject ideas -> https://blog.jetbrains.com/education/2022/12/06/hour-of-code-top-5-java-projects/");
                     break;
                 case "JavaScript":
-                    sendAnswer(chatId,"First, you need to know the basics about the programing language" +
+                    sendAnswer(chatId, "First" +
                             "\nDowload vsCode for JavaScript -> https://code.visualstudio.com/download" +
                             "\n\n\n ------------------------------------------" +
                             "\nBasics & OOP -> https://www.javascripttutorial.net/" +
@@ -200,11 +221,12 @@ public class CamberBot extends TelegramLongPollingBot {
                             "\n\nPet-project -> https://medium.com/@oleksii.vasylenko/top-10-pet-projects-for-junior-javascript-developers-da45f72c446a");
                     break;
                 case "Python":
-                    sendAnswer(chatId,"First, you need to know the basics about the programing language" +
+                    sendAnswer(chatId, "First" +
                             "\n\nDowload IDE for work with python: PyCharm Community or vsCode" +
                             "\nPyCharm -> https://www.jetbrains.com/pycharm/download/#section=windows" +
                             "\n or vsCode -> https://code.visualstudio.com/download" +
                             "\n\nMust read before work -> https://www.pythontutorial.net/getting-started/" +
+                            "\nhow to dowload python -> https://www.youtube.com/watch?v=JJQW3GPnzQ8&pp=ygUlaG93IHRvIGRvd25sb2FkIHB5dGhvbiBpbiB3aW5kb3dzIDExIA%3D%3D" +
                             "\n\n\n ------------------------------------------" +
                             "\n\nSTART:" +
                             "\n\n Basics -> https://www.pythontutorial.net/python-basics/" +
@@ -226,13 +248,44 @@ public class CamberBot extends TelegramLongPollingBot {
                             "\nCodeWars -> https://www.codewars.com/" +
                             "\n\nCodingBat -> https://codingbat.com/python" +
                             "\n\nPet-project ideas:" +
-                            "\n folow -> https://www.dataquest.io/blog/python-projects-for-beginners/");
+                            "\n folow -> https://www.dataquest.io/blog/python-projects-for-beginners/" +
+                            "\n\nProject ideas -> https://blog.jetbrains.com/education/2022/12/05/hour-of-code-top-5-python-projects/");
                     break;
                 case "Golang":
-                    sendAnswer(chatId,"in development");
+                    sendAnswer(chatId, "First" +
+                            "\n\nDowload IDE GoLand -> https://www.jetbrains.com/go/" +
+                            "\n\nor vsCode -> https://code.visualstudio.com/download" +
+                            "\n\nDowload GoLang -> https://go.dev/doc/install" +
+                            "\n video how to dowload Golang -> https://www.youtube.com/watch?v=kxD8p-aPYzM&pp=ygUlaG93IHRvIGRvd25sb2FkIGdvbGFuZyBpbiB3aW5kb3dzIDExIA%3D%3D" +
+                            "\n\n\n ------------------------------------------" +
+                            "\nStart -> https://go.dev/doc/tutorial/getting-started" +
+                            "\n\nBasics -> https://www.tutorialspoint.com/go/index.htm" +
+                            "\n\nGo Deeper -> https://www.sohamkamani.com/golang/json/" +
+                            "\nModules -> https://go.dev/blog/using-go-modules" +
+                            "\n\nCLIs -> https://go.dev/solutions/clis" +
+                            "\n\nCobra -> https://pkg.go.dev/github.com/spf13/cobra" +
+                            "\nGitHub Cobra -> https://github.com/spf13/cobra" +
+                            "\n\nUrfave/cli -> https://zerokspot.com/weblog/2021/01/25/building-a-cli-using-urfave-cli/" +
+                            "\nGitHub Urfave -> https://github.com/urfave/cli" +
+                            "\n\nGORM -> https://gorm.io/docs/index.html" +
+                            "\n\n\n ------------------------------------------" +
+                            "\nFRAMEWORKS" +
+                            "\n\nGin (REST) -> https://go.dev/doc/tutorial/web-service-gin" +
+                            "\nHeimdall -> https://github.com/gojek/heimdall" +
+                            "\n\nLogging -> https://www.loggly.com/use-cases/logging-in-golang-how-to-start/" +
+                            "\n\n\n ------------------------------------------" +
+                            "\nMicroservices" +
+                            "\n\nIntroduction to microservices -> https://developer.ibm.com/learningpaths/get-started-application-modernization/intro-microservices/introduction/" +
+                            "\n\nWatermil -> https://watermill.io/" +
+                            "\n\nRPCS -> https://en.doc.rpcx.io/" +
+                            "\n\nMicro -> https://micro.dev/" +
+                            "\n\n\n ------------------------------------------" +
+                            "\n\nPRACTICE" +
+                            "\nCodeWars - https://www.codewars.com/kata/search/go?q=&beta=false&order_by=sort_date%20desc" +
+                            "\n\n Pet-project -> https://blog.jetbrains.com/education/2022/12/10/hour-of-code-top-5-go-projects/");
                     break;
                 case "about dev":
-                    sendAnswer(chatId,"Hi, if you've clicked this button, you're probably wondering who I am. " +
+                    sendAnswer(chatId, "Hi, if you've clicked this button, you're probably wondering who I am. " +
                             "\nWell, I'm just a simple person who wants to make this life a little better. " +
                             "\nCamber is my first bot, the idea behind writing this bot" +
                             "\n is to help other people learn one of the given programming languages and its frameworks." +
@@ -251,8 +304,22 @@ public class CamberBot extends TelegramLongPollingBot {
                             "\nI also have a lot of things that do not work out, but the main thing is just to go to your goal)");
                     break;
                 default:
-                    sendAnswer(chatId,"I don`t  understand your request. Try again");
+                    sendAnswer(chatId, "I don`t  understand your request. Try again");
             }
+        }
+    }
+
+
+    private void getChatMember(Long chatId){
+        GetChatMemberCount getChatMemberCount = new GetChatMemberCount();
+        getChatMemberCount.setChatId(String.valueOf(chatId));
+
+        try{
+            Integer count =execute(getChatMemberCount);
+            sendAnswer(chatId,"Count of users: "+count);
+        }
+        catch (TelegramApiException e){
+            e.printStackTrace();
         }
     }
 
@@ -260,6 +327,7 @@ public class CamberBot extends TelegramLongPollingBot {
         SendMessage message = new SendMessage();
         message.setChatId(String.valueOf(chatId));
         message.setText(textToSend);
+
 
         ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
         keyboardMarkup.setSelective(true);
@@ -287,9 +355,9 @@ public class CamberBot extends TelegramLongPollingBot {
 
         message.setReplyMarkup(keyboardMarkup);
 
-        try{
+        try {
             execute(message);
-        }catch (TelegramApiException e){
+        } catch (TelegramApiException e) {
             e.printStackTrace();
         }
     }
