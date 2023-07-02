@@ -1,8 +1,8 @@
 We invite you to our unique Telegram bot "Camber" - your reliable assistant in learning programming languages!
 
-"Camber" is a specially designed Telegram bot that helps you efficiently learn programming languages. Regardless of your experience - whether you are a programming novice or an experienced developer, "CodeWizard" always has something interesting for you.
+"Camber" is a specially designed Telegram bot that helps you efficiently learn programming languages. Regardless of your experience - whether you are a programming novice or an experienced developer, "Camber" always has something interesting for you.
 
-The main advantage of "CodeWizard" is that the bot sends you useful links to learning materials and practical exercises. This allows you to actively work on improving your programming skills.
+The main advantage of "Camber" is that the bot sends you useful links to learning materials and practical exercises. This allows you to actively work on improving your programming skills.
 
 Learning Materials: "Camber" sends you links to the best online courses, video tutorials, blogs, and articles related to your programming language. You can learn at your own pace, focusing on topics that interest you the most. The bot always keeps you updated with fresh and relevant information.
 
