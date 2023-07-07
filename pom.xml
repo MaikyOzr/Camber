@@ -58,6 +58,16 @@
 			<artifactId>emoji-java</artifactId>
 			<version>5.1.1</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-site-plugin -->
+		<dependency>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-site-plugin</artifactId>
+			<version>4.0.0-M8</version>
+		</dependency>
+
+
+
 	</dependencies>
 
 	<build>
