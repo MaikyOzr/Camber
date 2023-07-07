@@ -24,7 +24,6 @@ public class CamberBot extends TelegramLongPollingBot {
         commands.add(new BotCommand("/qa", "quest & answer"));
         commands.add(new BotCommand("/community","group where we talk"));
         commands.add(new BotCommand("/channel","official channel"));
-        commands.add(new BotCommand("/people","Count of people who use Camber"));
         commands.add(new BotCommand("/motivation","motivation for your road to greatness"));
         commands.add(new BotCommand("/aboutbotdev","about bot developer"));
         try {
@@ -41,7 +40,7 @@ public class CamberBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotToken() {
-        return "1";
+        return "6281806553:AAHQjiuQdB2tscn48l4FiKNKouu4oHpw19k";
     }
 
     @Override
@@ -77,13 +76,8 @@ public class CamberBot extends TelegramLongPollingBot {
                             "\nDon't sit in front of your laptop 24/7. Keep moving. " +
                             "\nRest is also part of growth.");
                     break;
-
-                case "/people":
-                    getChatMember(chatId);
-                    break;
-
                 case "/community":
-                    sendAnswer(chatId, "Click -> https://t.me/+AgulXMwrgrg1ZDRi");
+                    sendAnswer(chatId, "Click -> https://t.me/+GKjIumpQtTkxYzRi");
                     break;
 
                 case "/start":
@@ -101,7 +95,6 @@ public class CamberBot extends TelegramLongPollingBot {
                             "\nCreated to help you learn programming. Choose programing language" +
                             "\nClick /info for a better understanding of what is in the bot" +
                             "\n!!!here are courses only on web development!!!");
-                    getChatMember(chatId);
 
                     break;
                 case "/qa":
@@ -144,7 +137,10 @@ public class CamberBot extends TelegramLongPollingBot {
                     sendAnswer(chatId, "Website developer (Denys) : https://t.me/o_o1o_o");
                     break;
                 case "/site":
-                    sendAnswer(chatId, ">>>>> in development <<<<<");
+                    sendAnswer(chatId, "The site has many malfunctions because it is hosted on the github platform," +
+                            "\nbut the main things work." +
+                            "\nHope you like it)" +
+                            "\n\nhttps://k0nty.github.io/Projects/");
                     break;
                 case "/howlearn":
                     sendAnswer(chatId, "Set aside 2-4 hours every day \n" +
@@ -388,7 +384,8 @@ public class CamberBot extends TelegramLongPollingBot {
                             "\nMaven repository(maven and gradle dependency) -> https://mvnrepository.com/" +
                             "\n\nSpring xml configuration -> https://docs.spring.io/spring-framework/docs/4.2.x/spring-framework-reference/html/xsd-configuration.html" +
                             "\n\nBealdung -> https://www.baeldung.com/" +
-                            "\n\nSpring Iniinitializr -> https://start.spring.io/" +
+                            "\n\nSpring Iniinitializr -> https://start.spring.io/"+
+                            "\n\nAbout Spring application.properties -> https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html"+
                             "\n\n\nFor Python\uD83D\uDC0D : " +
                             "\n\nMedium -> https://towardsdatascience.com/top-13-resources-to-learn-python-programming-46f3b0b74b91" +
                             "\n\n\nFor JavaScript\uD83C\uDF03 : " +
@@ -402,20 +399,6 @@ public class CamberBot extends TelegramLongPollingBot {
             }
         }
     }
-
-    private void getChatMember(Long chatId){
-        GetChatMemberCount getChatMemberCount = new GetChatMemberCount();
-        getChatMemberCount.setChatId(String.valueOf(chatId));
-
-        try{
-            Integer count =execute(getChatMemberCount);
-            sendAnswer(chatId,"The number of users who trust us: "+count);
-        }
-        catch (TelegramApiException e){
-            e.printStackTrace();
-        }
-    }
-
     private void sendAnswer(Long chatId, String textToSend) {
 
         SendMessage message = new SendMessage();
