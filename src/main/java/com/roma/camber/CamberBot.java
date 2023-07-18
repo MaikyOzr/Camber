@@ -2,7 +2,6 @@ package com.roma.camber;
 
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands;
-import org.telegram.telegrambots.meta.api.methods.groupadministration.GetChatMemberCount;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
@@ -40,7 +39,7 @@ public class CamberBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotToken() {
-        return "6281806553:AAHQjiuQdB2tscn48l4FiKNKouu4oHpw19k";
+        return "1";
     }
 
     @Override
